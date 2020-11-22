@@ -9,7 +9,7 @@ import com.laptrinhweb.entity.Room;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
 
-	Room findOneByName(String name);
+	Room findOneByRoomNumber(String roomNumber);
 
 	Room findOneById(Long id);
 

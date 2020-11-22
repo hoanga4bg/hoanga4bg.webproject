@@ -9,7 +9,7 @@ import com.laptrinhweb.entity.Invitee;
 @Repository
 public interface InviteeRepository extends JpaRepository<Invitee, Long>{
 
-	Invitee findOneByInviteeName(String name);
+	Invitee findOneByName(String name);
 
 	Invitee findOneById(Long id);
 

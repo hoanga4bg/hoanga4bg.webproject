@@ -33,8 +33,8 @@ public class RoomAPI {
 	}
 	
 	@GetMapping("/search")
-	public Room searchRoom(@RequestBody String name) {
-		Room s=roomRepository.findOneByName(name);
+	public Room searchRoom(@RequestBody String roomNumber) {
+		Room s=roomRepository.findOneByRoomNumber(roomNumber);
 		return s;
 	}
 	

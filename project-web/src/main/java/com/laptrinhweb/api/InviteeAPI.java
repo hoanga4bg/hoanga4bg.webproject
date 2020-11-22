@@ -35,7 +35,7 @@ public class InviteeAPI {
 	
 	@GetMapping("/search")
 	public Invitee searchInvitee(@RequestBody String name) {
-		Invitee invitee=inviteeRepository.findOneByInviteeName(name);
+		Invitee invitee=inviteeRepository.findOneByName(name);
 		return invitee;
 	}
 	
