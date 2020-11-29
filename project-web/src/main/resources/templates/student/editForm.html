@@ -1,0 +1,72 @@
+
+<!doctype html>
+<html>
+<head>
+<title>Edit Form</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+<body>
+	<form th:action="@{/student/update}" th:object="${student}" method="POST">
+		<table cellspacing="8" border="0">
+			<input type="hidden" name="id" th:field="*{id}" />
+	
+			<tr>
+				<td align="right">Họ và tên:</td>
+				<td><input type="text" name="name" th:field="*{name}" /></td>
+			</tr>
+			<tr>
+				<td align="right">Mã sinh viên:</td>
+				<td><input type="text" name="studentCode"
+					th:field="*{studentCode}"></td>
+			</tr>
+
+			<tr>
+				<td align="right">Tên lớp</td>
+				<td><input type="text" name="className" th:field="*{className}"></td>
+			</tr>
+
+			<tr>
+				<td align="right">Chứng minh thư:</td>
+				<td><input type="text" name="cmt" th:field="*{cmt}"></td>
+			</tr>
+
+			<tr>
+				<td align="right">Ngày sinh:</td>
+				<td><input type="date" name="dateOfBirth"
+					th:field="*{dateOfBirth}"></td>
+			</tr>
+			<tr>
+				<td align="right">Quê quán</td>
+				<td><input type="text" name="homeTown" th:field="*{homeTown}"></td>
+			</tr>
+			
+			<tr>
+				<td><p>Chọn dịch vụ</p></td>
+			</tr>
+			
+			<tr th:each="service : ${services}">
+				<td><input name="services" type="checkbox" th:value="${service.id}" th:checked="${service.selected}" /></td>
+				<td><span th:text="${service.name}"></span><br /></td>
+			</tr>
+			
+			<tr>
+				<td><p>Chọn số phòng</p></td>
+			</tr>
+			
+			<tr>
+				<td><select th:field="*{roomId}">
+						<th:block th:each="room: ${rooms}">
+							<option th:value="${room.id}" th:text="${room.roomNumber}" th:selected></option>
+						</th:block>
+				</select></td>
+			</tr>
+			
+			<tr>
+				<td><br> <input type="submit" value="Xác nhận"></td>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

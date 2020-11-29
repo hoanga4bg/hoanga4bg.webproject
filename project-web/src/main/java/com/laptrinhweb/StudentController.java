@@ -1,48 +1,153 @@
 package com.laptrinhweb;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
+import com.laptrinhweb.convert.ServiceConvert;
+import com.laptrinhweb.convert.StudentConvert;
+import com.laptrinhweb.dto.ServiceDTO;
+import com.laptrinhweb.dto.StudentDTO;
+import com.laptrinhweb.entity.Room;
+import com.laptrinhweb.entity.Service;
 import com.laptrinhweb.entity.Student;
 import com.laptrinhweb.repository.StudentRepository;
+import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 
 
 @Controller
 @RequestMapping("/student")
 public class StudentController {
-	
-	@Autowired
-	private StudentRepository studentRepository;
-	
+	private RestTemplate rest=new RestTemplate();
+	private StudentConvert studentConvert=new StudentConvert();
+	private ServiceConvert serviceConvert=new ServiceConvert();
 
+	
+	@GetMapping
+	public String showAll(Model model) {
+		List<Student> students=Arrays.asList(rest.getForObject("http://localhost:8080/student-api", Student[].class));
+		model.addAttribute("students",students);
+
+		return "student/student";
+	}
 
 	@GetMapping("/add")
 	public String addFrom(Model model) {
-		model.addAttribute("student",new Student());
-		return "formNhapSinhVien";
+		List<Service> services=Arrays.asList(rest.getForObject("http://localhost:8080/service-api", Service[].class));
+		List<Room> rooms=Arrays.asList(rest.getForObject("http://localhost:8080/room-api/availble", Room[].class));
+		model.addAttribute("rooms",rooms);
+		model.addAttribute("student",new StudentDTO());
+		model.addAttribute("services", services);
+		return "student/addForm";
 	}
+	
+	
+	
+	@GetMapping("/search")
+	public String searchStudent(@ModelAttribute("msv") String msv,Model model) {
+		List<Student> students=new ArrayList<Student>(
+								Arrays.asList(rest.getForObject("http://localhost:8080/student-api/search/{studentCode}", 
+																Student[].class, msv)));
+		model.addAttribute("students",students);
+		return "student/search";
+	}
+	
+	
+	
+	
 	
 	@GetMapping("/edit")
-	public String editForm() {
+	public String editForm(@ModelAttribute("id") String id,Model model) {
+		Student student=rest.getForObject("http://localhost:8080/student-api/search-id/{id}",Student.class,id);
 		
-		return "formEditSinhVien";
+		StudentDTO studentDTO=new StudentDTO();
+		studentDTO=studentConvert.toStudenDTO(student);
+		
+		List<Room> rooms=new ArrayList<Room>(Arrays.asList(rest.getForObject("http://localhost:8080/room-api/availble", Room[].class)));
+		
+		
+		if(rooms.indexOf(student.getRoom())<0) {
+			rooms.add(student.getRoom());
+		}
+		
+		Collections.sort((List<Room>) rooms,new Comparator<Room>() {
+
+			@Override
+			public int compare(Room arg0, Room arg1) {
+				if(arg0.getId()<arg1.getId()) {
+					return -1;
+				}
+				else if(arg0.getId()>arg1.getId()) {
+					return 1;
+				}
+				return 0;
+			}
+		});
+		
+		List<Service> services=new ArrayList<Service>(studentDTO.getServices());
+		
+		
+		
+		List<Service> allServices=new ArrayList<Service>(Arrays.asList(rest.getForObject("http://localhost:8080/service-api", Service[].class)));
+		
+		List<ServiceDTO> servicesDTO=new ArrayList<ServiceDTO>();
+		
+		
+		for(Service s:allServices) {
+			ServiceDTO sd=new ServiceDTO();
+			sd=serviceConvert.toServiceDTO(s);
+			if(services.indexOf(s)!=-1) {
+				sd.setSelected(true);			
+			}
+			else {
+				sd.setSelected(false);
+			}
+			servicesDTO.add(sd);
+		}
+		model.addAttribute("services",servicesDTO);	
+		model.addAttribute("student",studentDTO);
+		model.addAttribute("rooms",rooms);
+		return "student/editForm";
 	}
 	
 	
-	@GetMapping("/show")
-	public String showForm() {
-		return "thongKeSinhVien";
+	@GetMapping("/delete")
+	public String showForm(@ModelAttribute("id") String id) {
+		rest.delete("http://localhost:8080/student-api/{id}",id);
+		return "redirect:/student";
 	}
 	
-	@PostMapping("/add")
-	public String add(Student student) {
-		studentRepository.save(student);
-		return "redirect:/";
+	@PostMapping
+	public String add(StudentDTO studentDTO) {
+		Room room=rest.getForObject("http://localhost:8080/room-api/search-id/{id}", Room.class,studentDTO.getRoomId());
+		Student student=studentConvert.toStudent(studentDTO);
+		student.setRoom(room);
+		rest.postForObject("http://localhost:8080/student-api",student,Student.class);	
+		return "redirect:/student";
+		
+	}
+	
+	@PostMapping("/update")
+	public String updateStudent(StudentDTO studentDTO) {
+		Room room=rest.getForObject("http://localhost:8080/room-api/search-id/{id}", Room.class,studentDTO.getRoomId());
+		Student student=studentConvert.toStudent(studentDTO);
+		student.setRoom(room);
+		rest.put("http://localhost:8080/student-api",student,Student.class);	
+		return "redirect:/student";
 		
 	}
 }

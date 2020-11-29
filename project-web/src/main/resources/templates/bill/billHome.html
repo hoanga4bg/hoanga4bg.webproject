@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF8">
+<title>Insert title here</title>
+</head>
+<body>
+	<a th:href="@{/bill}" style="text-decoration: none"><h1 style="font-weight: bold">Trang chủ</h1></a>
+	<div>
+		<i style="color: red" th:text="${message}"></i>
+		&nbsp;&nbsp;&nbsp;&nbsp; 
+		
+	</div>
+	<div >
+		<form th:action=@{/bill/search}  method="GET">
+			<input type="text" name="msv" placeholder="Nhập mã sinh viên"/>
+			<input type="submit" name="Search by student code" value="search by student code" >
+		</form>
+		
+	</div>
+	
+	<div>
+	
+		<h1> Danh sách sinh viên</h1>
+		<table cellspacing="8" border="1px">
+			<tr>
+				<th>Số thứ tự</th>
+				<th>Mã sinh viên</th>
+				<th>Họ và tên</th>
+				<th>Tên lớp</th>
+				<th>Số chứng minh thư</th>
+				<th>Quê quán</th>
+				<th>Phòng ở</th>
+				<th>
+				<a th:if="${check}" th:href="@{/bill/add_all}" >
+					<button onclick="myFunction()">Thêm tất cả hóa đơn</button>
+				</a>	
+				
+				<a th:unless="${check}" th:href="@{/bill/add_all}" >
+					<button disabled>Thêm tất cả hóa đơn</button>
+				</a>
+				</th>
+			</tr>
+			
+			<tr th:each="student,state: ${students}">		
+					<td align="center"><span th:text="${state.index}+1"></span></td>
+  					<td align="right"><span th:text="${student.studentCode}"></span></td>
+					<td align="right"><span th:text="${student.name}"></span></td>
+					<td align="right"><span th:text="${student.className}"></span></td>
+					<td align="right"><span th:text="${student.cmt}"></span></td>
+					<td align="right"><span th:text="${student.homeTown}"></span></td>
+					<td align="right"><span th:text="${student.room.roomNumber}"></span></td>
+					<td align="center">
+						<a th:if="${dto[state.index].created}" th:href="@{/bill/add(id=${student.id})}" style="text-decoration: none;" >
+							<button onclick="myFunction()">Thêm hóa đơn</button>
+						</a>
+						<a th:unless="${dto[state.index].created}" th:href="@{/bill/add(id=${student.id})}" style="text-decoration: none;">
+							<button disabled>Thêm hóa đơn</button>
+						</a>
+						
+							&nbsp;&nbsp;&nbsp;&nbsp; 
+						<button>
+							<a th:href="@{/bill/show(id=${student.id})}" style="text-decoration: none;">Xem tất cả hóa đơn</a>
+						</button>	
+						
+					</td>
+						
+			</tr>
+		</table>
+	</div>
+	<script>
+		function myFunction() {
+			alert("Thêm thành công");
+		}
+	</script>
+</body>
+</html>

@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -26,6 +27,7 @@ public class Bill {
 	private Date createDate;
 	private Boolean status;
 	
+//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="student_id")
 	private Student student;

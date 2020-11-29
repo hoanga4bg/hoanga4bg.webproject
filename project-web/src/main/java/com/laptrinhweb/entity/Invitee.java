@@ -8,6 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.PrePersist;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -23,6 +26,14 @@ public class Invitee {
 	private String name;
 	private String cmt;
 	private Date dateOfBirth;
+	private Date inviteTime;
+	
+	@PrePersist
+	void inviteTime() {
+		this.inviteTime=inviteTime;
+	}
+	
+
 	@ManyToMany(targetEntity = Room.class)
 	private List<Room> room;
 }

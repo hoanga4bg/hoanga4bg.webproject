@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+	<div>
+		<table cellspacing="8" border="1px">
+			<tr>
+				<th>Mã sinh viên</th>
+				<th>Họ và tên</th>
+				<th>Tên lớp</th>
+				<th>Số chứng minh thư</th>
+				<th>Quê quán</th>
+				<th>Phòng ở</th>
+				<th></th>
+			</tr>
+			
+			<tr th:each="student: ${students}">		
+  					<td align="right"><span th:text="${student.studentCode}"></span></td>
+					<td align="right"><span th:text="${student.name}"></span></td>
+					<td align="right"><span th:text="${student.className}"></span></td>
+					<td align="right"><span th:text="${student.cmt}"></span></td>
+					<td align="right"><span th:text="${student.homeTown}"></span></td>
+					<td align="right"><span th:text="${student.room.roomNumber}"></span></td>
+					<td align="center">
+						<button>
+							<a th:href="@{add(id=${student.id})}">Thêm hóa đơn</a>
+						</button>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp; 
+						<button>
+							<a th:href="@{show(id=${student.id})}">Xem tất cả hóa đơn</a>
+						</button>	
+						
+					</td>
+						
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

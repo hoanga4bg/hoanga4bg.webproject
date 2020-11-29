@@ -1,5 +1,6 @@
 package com.laptrinhweb.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,8 @@ import javax.persistence.OneToMany;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -35,17 +38,21 @@ public class Student {
 	private Date dateOfBirth;
 	private String homeTown;
 	
+	
+//	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="room_id")
     private Room room;
 	
-	@ManyToMany(mappedBy = "students",cascade = CascadeType.ALL)
-	private List<Service> services;
 	
-	@OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
+	@ManyToMany(targetEntity = Service.class)
+	private List<Service> services=new ArrayList<Service>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "student")
 	private List<Bill> bills;
 	
-	@OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "student")
 	private List<Parking> parkings;
 
 	@Override

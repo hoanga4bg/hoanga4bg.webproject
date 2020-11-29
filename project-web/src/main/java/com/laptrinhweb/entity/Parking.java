@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 
 import javax.persistence.PrePersist;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 
@@ -27,9 +28,11 @@ public class Parking {
 	private Long id;
 	private Date createdAt;
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="student_id")
 	private Student student;
+	
 	
 	@PrePersist
 	void createdAt() {

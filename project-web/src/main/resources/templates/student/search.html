@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<table cellspacing="8" border="1px">
+			<tr>
+				<th>Mã sinh viên</th>
+				<th>Họ và tên</th>
+				<th>Tên lớp</th>
+				<th>Số chứng minh thư</th>
+				<th>Quê quán</th>
+				<th>Phòng ở</th>
+				<th></th>
+			</tr>
+			
+			<tr th:each="student: ${students}">		
+  					<td align="right"><span th:text="${student.studentCode}"></span></td>
+					<td align="right"><span th:text="${student.name}"></span></td>
+					<td align="right"><span th:text="${student.className}"></span></td>
+					<td align="right"><span th:text="${student.cmt}"></span></td>
+					<td align="right"><span th:text="${student.homeTown}"></span></td>
+					<td align="right"><span th:text="${student.room.roomNumber}"></span></td>
+					<td align="center">
+						<button>
+							<a th:href="@{edit(id=${student.id})}">Edit</a>
+						</button>
+							
+							&nbsp;&nbsp;&nbsp;&nbsp; 
+						<button>
+							<a th:href="@{delete(id=${student.id})}">Delete</a>
+						</button>	
+					</td>
+						
+			</tr>
+		</table>
+	</div>
+		</br>
+		</br>
+		</br>
+		</br>
+		</br>
+		</br>
+	<div>
+		<a th:href="@{/student}"> <button>Return home</button></a></td>
+	</div>
+</body>
+</html>

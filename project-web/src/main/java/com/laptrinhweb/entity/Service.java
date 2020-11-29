@@ -12,10 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
-
-
-
-
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -28,12 +25,13 @@ public class Service {
 	private Long id;
 	private String name;
 	private Double price;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date timeUsing;
 	
-	@ManyToMany
-	@JoinTable(name="student_service",
-			   joinColumns = @JoinColumn(name="service_id"),
-			   inverseJoinColumns = @JoinColumn(name="student_id")
-			)
-	private List<Student> students;
+	void timeUsing() {
+		this.timeUsing=new Date();
+	}
+	
+
 }

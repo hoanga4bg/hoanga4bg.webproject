@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+	
+		<h1> Danh sách hóa đơn</h1>
+
+		<p style="display: inline;">Họ và tên sinh viên :</p>  <p style="display: inline;" th:text="${student.name}"></p></br> </br>
+		<p style="display: inline;">Mã sinh viên :</p>  <p style="display: inline;" th:text="${student.studentCode}"></p>
+		<p></p>
+		<table cellspacing="8" border="1px">
+		
+			
+			<tr>
+				<th>Số thứ tự</th>
+				<th>Hóa đơn tháng</th>
+				<th>Số tiền cần thanh toán</th>
+				<th>Trạng thái</th>
+				<th style="width:100px "></th>
+			</tr>
+			
+			<tr th:each="bill,state: ${bills}">		
+  					<td align="center"><span th:text="${state.index}+1"></span></td>
+					<td align="right"><span th:text=${#dates.format(bill.createDate,'MM-yyyy')}></span></td>
+					<td align="right"><span th:text="${bill.totalPrice}*1000"></span></td>
+					<td align="right">
+						<span th:if="${bill.status}">Chưa thanh toán</span>
+						<span th:unless="${bill.status}">Đã thanh toán</span>
+				    </td>
+					<td align="center" >					
+							<a th:if="${bill.status}" th:href="@{/bill/pay(id=${bill.id})}"><button>Thanh toán</button></a>					
+							<a  th:unless="${bill.status}" th:href="@{/bill/pay(id=${bill.id})}"><button disabled>Thanh toán</button></a>
+
+					</td>
+						
+			</tr>
+		</table>
+		<button>
+			<a th:href="@{/bill}">Về trang chủ</a>
+		</button>
+	</div>
+</body>
+</html>

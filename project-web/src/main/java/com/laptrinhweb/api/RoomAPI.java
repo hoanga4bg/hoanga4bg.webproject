@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,12 +38,26 @@ public class RoomAPI {
 		Room s=roomRepository.findOneByRoomNumber(roomNumber);
 		return s;
 	}
+	@GetMapping("/availble")
+	public List<Room> getAvailbleRoom(){
+		List<Room> list=new ArrayList<Room>();
+		list=roomRepository.findAll();
+		List<Room> availbleList=new ArrayList<Room>();
+		for(Room r:list) {
+			if(r.getListStudent().size()<r.getCapacity()) {
+				availbleList.add(r);
+			}
+		}
+		return availbleList;
+		
+	}
 	
-	@GetMapping("/search-id")
-	public Room searchRoom(@RequestBody Long id) {
-		Room s=roomRepository.findOneById(id);
+	@GetMapping("/search-id/{id}")
+	public Room searchRoomById(@PathVariable("id") String id) {
+		Room s=roomRepository.findOneById(Long.parseLong(id));
 		return s;
 	}
+	
 	
 	@PostMapping
 	public Room saveRoom(@RequestBody Room room) {
