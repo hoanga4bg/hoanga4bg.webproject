@@ -34,8 +34,13 @@
 					<td align="center" >					
 							<a th:if="${bill.status}" th:href="@{/bill/pay(id=${bill.id})}"><button>Thanh toán</button></a>					
 							<a  th:unless="${bill.status}" th:href="@{/bill/pay(id=${bill.id})}"><button disabled>Thanh toán</button></a>
-
+							<br />
+							<a   th:href="@{/bill/delete(id=${bill.id})}"><button >Xóa hóa đơn</button></a>
+							<br />
+							
+							<a   th:href="@{/bill/showbill(id=${bill.id})}"><button >Xem hóa đơn</button></a>
 					</td>
+					
 						
 			</tr>
 		</table>

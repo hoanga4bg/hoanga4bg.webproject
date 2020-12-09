@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 
 
 @Data
-@NoArgsConstructor(access=AccessLevel.PRIVATE, force=true)
+
 @Entity
 public class Room {
 	@Id
@@ -31,13 +31,10 @@ public class Room {
 	private Long id;
 	private String roomNumber;
 	
-	@Enumerated(EnumType.STRING)
-	private final Type type;
-	public static enum Type {
-		NORMAL,VIP
-	}	
+	private String type;
 	private Double price;
 	private Integer capacity;
+	
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "room",cascade = CascadeType.ALL)

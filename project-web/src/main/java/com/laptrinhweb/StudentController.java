@@ -50,6 +50,7 @@ public class StudentController {
 		List<Service> services=Arrays.asList(rest.getForObject("http://localhost:8080/service-api", Service[].class));
 		List<Room> rooms=Arrays.asList(rest.getForObject("http://localhost:8080/room-api/availble", Room[].class));
 		model.addAttribute("rooms",rooms);
+	
 		model.addAttribute("student",new StudentDTO());
 		model.addAttribute("services", services);
 		return "student/addForm";
@@ -59,11 +60,16 @@ public class StudentController {
 	
 	@GetMapping("/search")
 	public String searchStudent(@ModelAttribute("msv") String msv,Model model) {
-		List<Student> students=new ArrayList<Student>(
-								Arrays.asList(rest.getForObject("http://localhost:8080/student-api/search/{studentCode}", 
-																Student[].class, msv)));
-		model.addAttribute("students",students);
-		return "student/search";
+		if(msv.equals("")) {
+			return "redirect:/student";
+		}
+		else {
+			List<Student> students=new ArrayList<Student>(
+									Arrays.asList(rest.getForObject("http://localhost:8080/student-api/search/{studentCode}", 
+																	Student[].class, msv)));
+			model.addAttribute("students",students);
+			return "student/student";
+		}
 	}
 	
 	

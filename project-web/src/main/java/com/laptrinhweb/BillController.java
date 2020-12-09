@@ -63,9 +63,6 @@ public class BillController {
 			
 		}	
 		
-		for(StudentDTO ss:studentDTO) {
-			System.out.println(ss.toString());
-		}
 		StudentDTO[] sArray= new StudentDTO[studentDTO.size()];
 		sArray=studentDTO.toArray(sArray);
 			
@@ -81,11 +78,48 @@ public class BillController {
 		if(msv==null||msv.equals("")) {
 			return "redirect:/bill";
 		}
-		List<Student> students=new ArrayList<Student>(
-				Arrays.asList(rest.getForObject("http://localhost:8080/student-api/search/{studentCode}", 
-												Student[].class, msv)));
-		model.addAttribute("students", students);
-		return "bill/billHome";
+		else {
+			List<Student> students=new ArrayList<Student>(
+					Arrays.asList(rest.getForObject("http://localhost:8080/student-api/search/{studentCode}", 
+													Student[].class, msv)));
+			List<Bill> allBill=Arrays.asList(rest.getForObject("http://localhost:8080/bill-api/month-search", Bill[].class));
+			Boolean check=true;
+			if(allBill.size()==students.size()) {
+				check=false;
+				model.addAttribute("check", check);
+			}
+			else {
+				check=true;
+				model.addAttribute("check", check);
+			}
+			List<StudentDTO> studentDTO=new ArrayList<StudentDTO>();
+			for(Student s: students) {
+				List<Bill> bills=new ArrayList<Bill>
+				(Arrays.asList(rest.getForObject("http://localhost:8080/bill-api/search-month/{id}",
+								Bill[].class, s.getId().toString())));
+				if(bills.size()==0) {
+					StudentDTO sd=studentConvert.toStudenDTO(s);
+					sd.setCreated(true);
+					studentDTO.add(sd);
+				
+				}
+				else {
+					StudentDTO sd=studentConvert.toStudenDTO(s);
+					sd.setCreated(false);
+					studentDTO.add(sd);
+				}
+				
+			}	
+			
+			StudentDTO[] sArray= new StudentDTO[studentDTO.size()];
+			sArray=studentDTO.toArray(sArray);
+				
+			model.addAttribute("dto",sArray);
+			model.addAttribute("students",students);
+
+			
+			return "bill/billHome";
+		}
 	}
 	
 	@GetMapping("/add")
@@ -112,7 +146,7 @@ public class BillController {
 			bill.setTotalPrice(total);
 			bill.setStatus(true);
 			bill.setCreateDate(date);
-			
+			bill.setServices(services);
 			rest.postForObject("http://localhost:8080/bill-api", bill, Bill.class);
 			
 			model.addAttribute("services",services);
@@ -170,7 +204,7 @@ public class BillController {
 				bill.setTotalPrice(total);
 				bill.setStatus(true);
 				bill.setCreateDate(date);
-				
+				bill.setServices(services);
 				rest.postForObject("http://localhost:8080/bill-api", bill, Bill.class);
 				
 				
@@ -183,5 +217,18 @@ public class BillController {
 		
 		return "redirect:/bill";
 		
+	}
+	
+	
+	@GetMapping("/showbill")
+	public String showBill(@ModelAttribute("id") String id, Model model) {
+		Bill bill=rest.getForObject("http://localhost:8080/bill-api/search/{id}", Bill.class,id);
+		model.addAttribute("bill", bill);
+		return "bill/billDetail";
+	}
+	@GetMapping("/delete")
+	public String deleteBill(@ModelAttribute("id") String id) {
+		rest.delete("http://localhost:8080/bill-api/{id}", id);
+		return "redirect:/bill";
 	}
 }	

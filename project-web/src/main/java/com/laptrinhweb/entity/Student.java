@@ -49,7 +49,7 @@ public class Student {
 	private List<Service> services=new ArrayList<Service>();
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "student")
+	@OneToMany(mappedBy = "student",cascade = CascadeType.ALL)
 	private List<Bill> bills;
 	
 	@OneToMany(mappedBy = "student")

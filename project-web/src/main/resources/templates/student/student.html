@@ -2,13 +2,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Sinh Viên</title>
 </head>
 <body>
 	<div>
 		<form th:action=@{/student/search}  method="GET">
-			<input type="text" name="msv" placeholder="Nhập mã sinh viên"/>
-			<input type="submit" name="Search by student code" value="search by student code" >
+			<input type="text" id="msv" name="msv" placeholder="Nhập mã sinh viên"/>
+			<input type="submit" name="Search by student code" value="search by student code"  onclick="check()">
 		</form>
 		
 	</div>
@@ -20,6 +20,7 @@
 		<h1>Danh sách sinh viên</h1>
 		<table cellspacing="8" border="1px">
 			<tr>
+				<th>Số thứ tự</th>
 				<th>Mã sinh viên</th>
 				<th>Họ và tên</th>
 				<th>Tên lớp</th>
@@ -28,7 +29,8 @@
 				<th>Phòng ở</th>
 				<th></th>
 			</tr>
-			<tr th:each="student: ${students}" >		
+			<tr th:each="student,state: ${students}" >		
+					<td align="right"><span th:text="${state.index}+1"></span></td>
   					<td align="right"><span th:text="${student.studentCode}"></span></td>
 					<td align="right"><span th:text="${student.name}"></span></td>
 					<td align="right"><span th:text="${student.className}"></span></td>
@@ -50,5 +52,16 @@
 	<div>
 		<a th:href="@{/student/add}"> <button>Add Student</button></a></td>
 	</div>
+	
+
+	<script>
+		function check(){
+			var value=document.getElementById("msv").value;
+			if(value===""){
+				alert('Vui lòng nhập mã sinh viên');
+				
+			}
+		}
+	</script>
 </body>
 </html>

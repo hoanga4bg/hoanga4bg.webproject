@@ -32,5 +32,7 @@ public class Bill {
 	@JoinColumn(name="student_id")
 	private Student student;
 	
+	@ManyToMany(targetEntity = Service.class)
+	private List<Service> services;
 
 }

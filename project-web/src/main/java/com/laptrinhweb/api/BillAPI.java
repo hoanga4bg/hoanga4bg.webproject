@@ -77,8 +77,8 @@ public class BillAPI {
 	}
 	
 	
-	@DeleteMapping
-	public void deleteBill(@RequestBody Long id) {
-		billRepository.deleteById(id);
+	@DeleteMapping("/{id}")
+	public void deleteBill(@PathVariable("id") String id) {
+		billRepository.deleteById(Long.parseLong(id));
 	}
 }
