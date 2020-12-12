@@ -33,6 +33,13 @@ public class RoomAPI {
 		return list;
 	}
 	
+	//Hải thêm
+			@GetMapping("/{roomNumber}")
+			public Room searchRoomByName(@PathVariable("roomNumber") String roomNumber) {
+				Room s=roomRepository.findOneByRoomNumber(roomNumber);
+				return s;
+			}
+			
 	@GetMapping("/search")
 	public Room searchRoom(@RequestBody String roomNumber) {
 		Room s=roomRepository.findOneByRoomNumber(roomNumber);
@@ -59,6 +66,12 @@ public class RoomAPI {
 	}
 	
 	
+	@GetMapping("/search/{roomNumber}") 
+	public Room searchRoomByRoomNumber(@PathVariable("roomNumber") String roomNumber) {
+		Room rn = roomRepository.findOneByRoomNumber(roomNumber);
+		return rn;
+	}
+	
 	@PostMapping
 	public Room saveRoom(@RequestBody Room room) {
 		return roomRepository.save(room);
@@ -71,8 +84,8 @@ public class RoomAPI {
 	}
 	
 	
-	@DeleteMapping
-	public void deleteRoom(@RequestBody Long id) {		
-		roomRepository.deleteById(id);		
+	@DeleteMapping("/{id}")
+	public void deleteRoom(@PathVariable("id") String id) {		
+		roomRepository.deleteById(Long.parseLong(id));		
 	}
 }

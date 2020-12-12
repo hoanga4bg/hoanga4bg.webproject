@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="/css/style2.css" rel='stylesheet' type='text/css'
+	media="all" />
+</head>
+<body>
+		<div class="menu">
+			<span>
+			<img alt="" src="/images/iconmenu.png" width="15px" height="15px"></span> <span><a th:href="@{/}">Trang Chủ</a></span> 
+			<span><a th:href="@{/student}">Sinh Viên</a></span> 
+			<span><a th:href="@{/room}">Phòng</a></span> 
+	
+			<span><a th:href="@{/bill}">Hóa Đơn</a></span> 
+			<span><a th:href="@{/service}">Dịch vụ</a></span> 
+			<span><a th:href="@{/invite/show}">Khách Mời</a></span>
+
+		</div>
+		<br />
+		<br />
+		
+		
+		<h1>Thu nhập hàng tháng</h1>
+		<p style="display: inline;">Loại dịch vụ :</p>  <p style="display: inline;" th:text="${service.name}"></p>
+		<p></p>
+		<table cellspacing="8" border="1px">
+		
+			
+			<tr>
+				<th>Số thứ tự</th>
+				<th>Tháng</th>
+				<th>Tổng thu nhập</th>
+
+			</tr>
+			
+			<tr th:each="total,state: ${totals}">		
+  					<td align="center"><span th:text="${state.index}+1"></span></td>
+					<td align="center"><span th:text=${months[state.index]}></span></td>
+					<td align="right"><span th:text="${total}*1000"></span></td>
+			</tr>
+		</table>
+		<button>
+			<a th:href="@{/service}">Về trang chủ</a>
+		</button>
+</body>
+</html>

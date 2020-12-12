@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+
+
+	<div>
+		<h1>Danh sách dịch vụ</h1>
+		<table cellspacing="8" border="1px">
+			<tr>
+				<th>Số thứ tự</th>
+				<th>Tên dịch vụ</th>
+				<th>Đơn giá</th>
+				
+				<th></th>
+				<th></th>
+			</tr>
+			<tr th:each="service,state: ${services}" >		
+					<td align="right"><span th:text="${state.index}+1"></span></td>
+  					<td align="right"><span th:text="${service.name}"></span></td>
+					<td align="right"><span th:text="${service.price}"></span></td>
+					
+					<td><a th:href="@{/service/edit(id=${service.id})}">Sửa</a>
+					&nbsp;&nbsp;&nbsp;&nbsp; 
+					<a th:href="@{/serivce/delete(id=${service.id})}">Xóa</a></td>
+					<td>
+						<button>
+							<a th:href="@{/service/statistic(id=${service.id})}">Xem doanh thu các tháng</a></td>
+						</button>
+					</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

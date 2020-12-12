@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+	
+	<div align="center">
+		<h1>SỬA DỊCH VỤ</h1>
+		<br /> <br /> <br /> <br />
+
+
+		<form th:action="@{/service/add}" th:object="${service}"
+			method="post">
+			<table>
+				<tr>
+					<td>Mã dịch vụ:</td>
+					<td><input type="number" th:field="*{id}" readonly="readonly" /></td>
+				</tr>
+				<tr>
+					<td>Tên dịch vụ</td>
+					<td><input type="text" th:field="*{name}" /></td>
+				</tr>
+				<tr>
+					<td>Giá dịch vụ</td>
+					<td><input type="text" th:field="*{price}" /></td>
+				</tr>
+				<tr>
+					<td colspan="2"><button type="submit">Update</button>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

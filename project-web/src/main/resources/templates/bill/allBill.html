@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div>
-	
+		
 		<h1> Danh sách hóa đơn</h1>
 
 		<p style="display: inline;">Họ và tên sinh viên :</p>  <p style="display: inline;" th:text="${student.name}"></p></br> </br>
@@ -25,7 +25,7 @@
 			
 			<tr th:each="bill,state: ${bills}">		
   					<td align="center"><span th:text="${state.index}+1"></span></td>
-					<td align="right"><span th:text=${#dates.format(bill.createDate,'MM-yyyy')}></span></td>
+					<td align="center"><span th:text="${#dates.format(bill.createDate,'MM-yyyy')}"></span></td>
 					<td align="right"><span th:text="${bill.totalPrice}*1000"></span></td>
 					<td align="right">
 						<span th:if="${bill.status}">Chưa thanh toán</span>
@@ -40,8 +40,7 @@
 							
 							<a   th:href="@{/bill/showbill(id=${bill.id})}"><button >Xem hóa đơn</button></a>
 					</td>
-					
-						
+			
 			</tr>
 		</table>
 		<button>

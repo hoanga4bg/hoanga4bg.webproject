@@ -32,7 +32,7 @@ public class BillController {
 	private StudentConvert studentConvert=new StudentConvert();
 	
 	@GetMapping
-	public String home(@ModelAttribute("message") String message, Model model) {
+	public String home( Model model) {
 		List<Student> students=Arrays.asList(rest.getForObject("http://localhost:8080/student-api", Student[].class));
 		List<Bill> allBill=Arrays.asList(rest.getForObject("http://localhost:8080/bill-api/month-search", Bill[].class));
 		Boolean check=true;
@@ -68,7 +68,7 @@ public class BillController {
 			
 		model.addAttribute("dto",sArray);
 		model.addAttribute("students",students);
-		model.addAttribute("message",message);
+	
 		return "bill/billHome";
 	}
 	

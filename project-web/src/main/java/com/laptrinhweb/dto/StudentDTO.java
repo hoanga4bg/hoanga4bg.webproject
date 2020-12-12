@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.laptrinhweb.entity.Room;
 import com.laptrinhweb.entity.Service;
 
 import lombok.Data;
@@ -20,6 +21,8 @@ public class StudentDTO {
 	private Date dateOfBirth;
 	private String homeTown;
 	private Long roomId;
+	private Room room;
 	private List<Service> services;
 	private boolean created;
+	private boolean checkticket;
 }

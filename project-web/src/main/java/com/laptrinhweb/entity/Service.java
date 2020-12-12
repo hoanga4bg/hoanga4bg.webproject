@@ -26,13 +26,7 @@ public class Service {
 	private String name;
 	private Double price;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date timeUsing;
-	
-	void timeUsing() {
-		this.timeUsing=new Date();
-	}
-	
+
 	
 
 }

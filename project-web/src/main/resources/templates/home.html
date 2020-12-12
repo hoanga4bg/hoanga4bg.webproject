@@ -2,13 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Trang chủ</title>
+<link href="/css/style2.css" rel='stylesheet' type='text/css'
+	media="all" />
 </head>
 <body>
-	<ul>
-		<li><a th:href="@{/student}"><button>Sinh viên</button></a></li>
-		<li><a th:href="@{/bill}"><button>Hóa đơn</button></a></li>
+	<div class="menu">
+			<span>
+			<img alt="" src="/images/iconmenu.png" width="15px" height="15px"></span> <span><a th:href="@{/}">Trang Chủ</a></span> 
+			<span><a th:href="@{/student}">Sinh Viên</a></span> 
+			<span><a th:href="@{/room}">Phòng</a></span> 
+		
+			<span><a th:href="@{/bill}">Hóa Đơn</a></span> 
+			<span><a th:href="@{/service}">Dịch vụ</a></span> 
+			<span><a th:href="@{/invite/show}">Khách Mời</a></span>
+
+		</div>
 	
-	</ul>
 </body>
 </html>

@@ -1,0 +1,47 @@
+
+<!doctype html>
+<html>
+<head>
+<title>Sửa phòng</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	
+	<form th:action="@{/room/edit}" th:object="${room}" method="POST">
+         <table cellspacing="8" border="0"> 
+             <tr>
+             	 <td><input type="hidden" name="id" th:field="*{id}"></td>
+             </tr>
+             <tr>
+                 <td align="right">Số Phòng:</td>
+                 <td><input type="text" name="roomNumber" th:field="*{roomNumber}"></td>
+             </tr>
+             
+              <tr>
+                 <td align="right">Loại</td>
+	                 <td><input type="radio" name="type" th:field="*{type}" th:value="VIP"><span>VIP</span></td>
+                    <td><input type="radio" name="type" th:field="*{type}" th:value="Normal"><span>Normal</span></td>
+             </tr>
+             
+             <tr>
+                 <td align="right">Giá phòng:</td>
+                 <td><input type="text" name="price" th:field="*{price}"></td> 
+             </tr> 
+             
+             <tr>
+                 <td align="right">Số lượng người ở tối đa:</td>
+                 <td><input type="text" name="capacity" th:field="*{capacity}"></td> 
+             </tr> 
+             
+           	
+           	
+           	<tr> 
+                 <td><br>
+                     <input type="submit" value="Submit">
+                 </td>
+             </tr>
+         </table>
+	</form>
+</body>
+</html>

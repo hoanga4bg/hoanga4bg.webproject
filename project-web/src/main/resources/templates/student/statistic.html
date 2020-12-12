@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Thống kê</title>
+<link href="/css/style2.css" rel='stylesheet' type='text/css'
+	media="all" />
+</head>
+<body>
+		<div class="menu">
+			<span>
+			<img alt="" src="/images/iconmenu.png" width="15px" height="15px"></span> <span><a th:href="@{/}">Trang Chủ</a></span> 
+			<span><a th:href="@{/student}">Sinh Viên</a></span> 
+			<span><a th:href="@{/room}">Phòng</a></span> 
+		
+			<span><a th:href="@{/bill}">Hóa Đơn</a></span> 
+			<span><a th:href="@{/service}">Dịch vụ</a></span> 
+			<span><a th:href="@{/invite/show}">Khách Mời</a></span>
+
+		</div>
+		<form style="text-align: center" th:action=@{/student/statistic}  method="GET">
+			<span>Ngày bắt đầu</span > &nbsp;&nbsp;<input type="date" id="start" name="start"/>
+			&nbsp;&nbsp;&nbsp;&nbsp; 
+			&nbsp;&nbsp;&nbsp;&nbsp; 
+			<span>Ngày kết thúc</span > &nbsp;&nbsp;<input type="date" id="end" name="end" />
+			<input type="hidden"  name="id" th:value="${student.id}"/>
+			<br/>
+			<br/>
+			<input  type="submit" name="show" value="Xem" />
+		</form>
+		
+		<div >
+			
+			<h1 th:if="${start}=='' and ${end}==''">
+				Thống kê tổng số tiền dịch vụ của sinh viên từ ngày bắt đầu vào tới hiện tại
+			</h1>
+			
+			<h1 th:unless="${start}=='' and ${end}==''">
+				Thống kê tổng số tiền dịch vụ của sinh viên từ ngày <span th:text="${start}"></span> tới <span th:text="${end}"></span>
+			</h1>
+			<p style="display: inline;">Tên sinh viên :</p>  <p style="display: inline;" th:text="${student.name}"></p>
+			<br /><br />
+			<p style="display: inline;">Mã sinh viên :</p>  <p style="display: inline;" th:text="${student.studentCode}"></p>
+			<br /><br />
+			<p style="display: inline;">Ngày sinh :</p>  <p style="display: inline;" th:text="${#dates.format(student.dateOfBirth, 'dd-MM-yyyy')}"></p>
+			<br /><br />
+			<table cellspacing="8" border="1px">
+			
+				
+				<tr>
+					<th>Số thứ tự</th>
+					<th>Tên dịch vụ</th>
+					<th>Số tiền</th>
+	
+				</tr>
+				
+				<tr th:each="serviceDTO,state: ${servicesDTO}">		
+	  					<td align="center"><span th:text="${state.index}+1"></span></td>
+						<td align="center"><span th:text="${serviceDTO.name}"></span></td>
+						<td align="right"><span th:text="${serviceDTO.total}*1000"></span></td>
+				</tr>
+		</table>
+		<div>
+		
+		<button>
+			<a th:href="@{/student}">Về trang chủ</a>
+		</button>
+</body>
+</html>

@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -24,6 +26,7 @@ public class Bill {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private Double totalPrice;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date createDate;
 	private Boolean status;
 	

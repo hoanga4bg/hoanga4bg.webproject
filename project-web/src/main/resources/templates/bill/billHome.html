@@ -3,15 +3,25 @@
 <head>
 <meta charset="UTF8">
 <title>Hóa đơn</title>
+<link href="/css/style2.css" rel='stylesheet' type='text/css'
+	media="all" />
 </head>
 <body>
-	<a th:href="@{/bill}" style="text-decoration: none"><h1 style="font-weight: bold">Trang chủ</h1></a>
-	<div>
-		<i style="color: red" th:text="${message}"></i>
-		&nbsp;&nbsp;&nbsp;&nbsp; 
+<div class="menu">
+			<span>
+			<img alt="" src="/images/iconmenu.png" width="15px" height="15px"></span> <span><a th:href="@{/}">Trang Chủ</a></span> 
+			<span><a th:href="@{/student}">Sinh Viên</a></span> 
+			<span><a th:href="@{/room}">Phòng</a></span> 
 		
-	</div>
-	<div >
+			<span><a th:href="@{/bill}">Hóa Đơn</a></span> 
+			<span><a th:href="@{/service}">Dịch vụ</a></span> 
+			<span><a th:href="@{/invite/show}">Khách Mời</a></span>
+
+		</div>
+	<br />
+		<br />
+	
+	<div style="text-align: center">
 		<form th:action=@{/bill/search}  method="GET">
 			<input type="text" name="msv" placeholder="Nhập mã sinh viên"/>
 			<input type="submit" name="Search by student code" value="search by student code" >
@@ -20,8 +30,9 @@
 	</div>
 	
 	<div>
-	
-		<h1> Danh sách sinh viên</h1>
+		<div style="text-align: center">
+			<h1> Danh sách sinh viên</h1>
+		</div>
 		<table cellspacing="8" border="1px">
 			<tr>
 				<th>Số thứ tự</th>
@@ -29,6 +40,7 @@
 				<th>Họ và tên</th>
 				<th>Tên lớp</th>
 				<th>Số chứng minh thư</th>
+				<th>Ngày sinh</th>
 				<th>Quê quán</th>
 				<th>Phòng ở</th>
 				<th>
@@ -48,6 +60,7 @@
 					<td align="right"><span th:text="${student.name}"></span></td>
 					<td align="right"><span th:text="${student.className}"></span></td>
 					<td align="right"><span th:text="${student.cmt}"></span></td>
+					<td align="right"><span th:text="${#dates.format(student.dateOfBirth, 'dd-MM-yyyy')}"></span></td>
 					<td align="right"><span th:text="${student.homeTown}"></span></td>
 					<td align="right"><span th:text="${student.room.roomNumber}"></span></td>
 					<td align="center">
@@ -62,8 +75,6 @@
 						<button>
 							<a th:href="@{/bill/show(id=${student.id})}" style="text-decoration: none;">Xem tất cả hóa đơn</a>
 						</button>	
-						
-						
 					</td>
 						
 			</tr>

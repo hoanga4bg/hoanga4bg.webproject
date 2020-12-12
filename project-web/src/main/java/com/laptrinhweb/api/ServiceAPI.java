@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,9 +39,9 @@ public class ServiceAPI {
 		return service;
 	}
 	
-	@GetMapping("/search-id")
-	public Service searchService(@RequestBody Long id) {
-		Service service=serviceRepository.findOneById(id);
+	@GetMapping("/search-id/{id}")
+	public Service searchServiceById(@PathVariable("id") String id) {
+		Service service=serviceRepository.findOneById(Long.parseLong(id));
 		return service;
 	}
 	
@@ -56,8 +57,58 @@ public class ServiceAPI {
 	}
 	
 	
-	@DeleteMapping
-	public void deleteService(@RequestBody Long id) {		
-		serviceRepository.deleteById(id);		
+//	@DeleteMapping
+//	public void deleteService(@RequestBody Long id) {		
+//		serviceRepository.deleteById(id);		
+//	}
+//	
+	
+	// Huy thêm
+	@GetMapping("/test")
+	public String test()
+	{
+		return "WELCOME";
+	}
+	
+	@PostMapping("/addemp1")
+	public Service addemployee(@RequestBody Service emp)
+	{
+		serviceRepository.save(emp);
+		return emp;
+		
+	}
+	@GetMapping("/getemp")
+	public List<Service> employees()
+	{
+		return serviceRepository.findAll();
+	}
+	
+	@GetMapping("/employess/{name}")
+	public Service findbyname(@PathVariable("name") String name)
+	{
+		return serviceRepository.FindByName(name);
+	}
+	
+	
+	@GetMapping("/employess-id/{id}")
+	public Service findbyId(@PathVariable("id") String id)
+	{
+		Service service=serviceRepository.findOneById(Long.parseLong(id));
+		return service;
+	}
+	
+	
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable("id") String id)
+	{	
+		serviceRepository.deleteById(Long.parseLong(id));
+		
+	}
+	
+	@PutMapping("/empupdate")
+	public Service updateemp(@RequestBody Service emp)
+	{
+		serviceRepository.save(emp);
+		return emp;
 	}
 }

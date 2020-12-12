@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="/css/style2.css" rel='stylesheet' type='text/css'
+	media="all" />
+</head>
+<body>
+	<div class="menu">
+			<span>
+			<img alt="" src="/images/iconmenu.png" width="15px" height="15px"></span> <span><a th:href="@{/}">Trang Chủ</a></span> 
+			<span><a th:href="@{/student}">Sinh Viên</a></span> 
+			<span><a th:href="@{/room}">Phòng</a></span> 
+		
+			<span><a th:href="@{/bill}">Hóa Đơn</a></span> 
+			<span><a th:href="@{/service}">Dịch vụ</a></span> 
+			<span><a th:href="@{/invite/show}">Khách Mời</a></span>
+
+		</div>
+
+
+		<br />
+		<br />
+	<div align="center">
+		<h1>Quản Lý Dịch Vụ</h1>
+		<br /><button><a th:href=@{/service/add}>Tạo mới dịch vụ</a></button>  <br /> <br /> <br /> <br />
+		<table border="1" cellpadding="10">
+			<thead>
+				<tr>
+					<th>Số thứ tự</th>
+					<th>Tên DV</th>
+					<th>Giá DV</th>
+					<th>Sửa/Xóa</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="service,state :${services}">
+					<td th:text="${state.index}+1"></td>
+					<td th:text="${service.name}"></td>
+					<td th:text="${service.price}"></td>
+					<td><a th:href="@{'/service/edit/' +${service.id}}">Edit</a>&nbsp; <a
+						th:href="@{'/service/delete/' +${service.id}}">Delete</a></td>
+						
+					<td>
+						<button>
+							<a th:href="@{/service/statistic(id=${service.id})}">Xem doanh thu các tháng</a></td>
+						</button>
+					</td>	
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

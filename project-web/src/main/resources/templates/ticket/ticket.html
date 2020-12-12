@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,24 +18,17 @@
 			<span><a th:href="@{/invite/show}">Khách Mời</a></span>
 
 		</div>
-	
-	<br />
-	<div style="text-align: center">
-		<form th:action=@{/student/search}  method="GET">
+	<div>
+		<form th:action=@{/ticket/search}  method="GET">
 			<input type="text" id="msv1" name="msv" placeholder="Nhập mã sinh viên"/>
 			<input type="submit" name="Search by student code" value="search by student code"  onclick="check()">
 		</form>
 		
 	</div>
-	
-	
-		
-	
 	<div class="nameTitle">
-	<span><h1>Danh sách sinh viên</h1></span> 
-	<a th:href="@{/student/add}"> <button>Add Student</button></a></td>
-	<div th:if="${#lists.size(students) >0}">
-	
+	<h1>Danh sách sinh viên</h1>
+	</div>
+		<div class="table1">
 		<table>
 			<thead>
 				<th>Số thứ tự</th>
@@ -44,10 +36,8 @@
 				<th>Họ và tên</th>
 				<th>Tên lớp</th>
 				<th>Số chứng minh thư</th>
-				<th>Ngày sinh</th>
 				<th>Quê quán</th>
 				<th>Phòng ở</th>
-				<th><a th:href="@{/ticket/show}"><button >Vé Xe</button></a><th>
 				
 			</thead>
 			<tbody>
@@ -57,28 +47,23 @@
 					<td align="right"><span th:text="${student.name}"></span></td>
 					<td align="right"><span th:text="${student.className}"></span></td>
 					<td align="right"><span th:text="${student.cmt}"></span></td>
-					<td align="right"><span th:text="${#dates.format(student.dateOfBirth, 'dd-MM-yyyy')}"></span></td>
 					<td align="right"><span th:text="${student.homeTown}"></span></td>
 					<td align="right"><span th:text="${student.room.roomNumber}"></span></td>
 					<td><a th:href="@{student/edit(id=${student.id})}">Edit</a>
 					&nbsp;&nbsp;&nbsp;&nbsp; 
 					<a th:href="@{/student/delete(id=${student.id})}">Delete</a>
-					</td>
-					<td>
-						<button>
-							<a th:href="@{/student/statistic(start='',end='',id=${student.id})}">Thống kê số tiền theo dịch vụ</a></td>
-						</button>
+					&nbsp;&nbsp;&nbsp;&nbsp; 
+					<a th:if="${student.checkticket}" th:href="@{/ticket(id=${student.id})}"><button >Đăng Ký</button></a>
+					<a th:unless="${student.checkticket}" th:href="@{/ticket(id=${student.id})}"><button disabled >Đã Đăng Ký</button></a>
 					</td>
 			</tr>
 			</tbody>
 			
 		</table>
+		<br>
 		
-	</div>	
-	
-	
-	<div th:unless="${#lists.size(students) >0}">
-		<h1>Không tìm thấy sinh viên với mã sinh viên: <span th:text="${msv}"></span></h1>
+	<div>
+		<a th:href="@{/student/add}"> <button>Add Student</button></a></td>
 	</div>
 	
 	</div>

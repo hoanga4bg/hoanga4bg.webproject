@@ -13,7 +13,7 @@ public class ServiceConvert {
 		service.setId(serviceDTO.getId());
 		service.setName(serviceDTO.getName());
 		service.setPrice(serviceDTO.getPrice());
-		service.setTimeUsing(serviceDTO.getTimeUsing());
+		
 		return service;
 	}
 	
@@ -23,7 +23,7 @@ public class ServiceConvert {
 		serviceDTO.setId(service.getId());
 		serviceDTO.setName(service.getName());
 		serviceDTO.setPrice(service.getPrice());
-		serviceDTO.setTimeUsing(service.getTimeUsing());
+
 		return serviceDTO;
 	}
 }

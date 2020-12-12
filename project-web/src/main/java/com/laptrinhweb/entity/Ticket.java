@@ -7,38 +7,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.PrePersist;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
-
-
-
 @Data
-
 @Entity
-public class Invitee {
+
+public class Ticket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String name;
-	private String cmt;
+	private Long price = 100000l;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dateOfBirth;
-	//private Date inviteTime;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dateInvite;
+	private Date createDate;
 	
-//	@PrePersist
-//	void inviteTime() {
-//		this.inviteTime=inviteTime;
-//	}
-	
+	@ManyToOne
+	@JoinColumn(name="student_id")
+	private Student student;
 
-	@ManyToMany(targetEntity = Room.class)
-	private List<Room> room;
 }

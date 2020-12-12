@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+	crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="../css/style2.css">
+
+</head>
+
+<body>
+	<!-- start menu -->
+	<div class="menu">
+			<span>
+			<img alt="" src="/images/iconmenu.png" width="15px" height="15px"></span> <span><a th:href="@{/}">Trang Chủ</a></span> 
+			<span><a th:href="@{/student}">Sinh Viên</a></span> 
+			<span><a th:href="@{/room}">Phòng</a></span> 
+		
+			<span><a th:href="@{/bill}">Hóa Đơn</a></span> 
+			<span><a th:href="@{/service}">Dịch vụ</a></span> 
+			<span><a th:href="@{/invite/show}">Khách Mời</a></span>
+
+		</div>
+	<div class="hai">
+		<div class="hai1">
+			<h1>Sửa Thông Tin Khách Hàng</h1>
+		</div>
+		<form th:object="${invite}" th:action=@{/invite/edit} method="POST">
+		<div>
+				<input type="hidden" value="" placeholder="ID khách mời" id="ten"
+					name="ten" th:field="*{id}" title="hãy nhập vào id sinh viên" required>
+			</div>
+			<div>
+				<input type="text" value="" placeholder="Tên khách mời" id="ten"
+					name="ten" th:field="*{name}" title="hãy nhập vào tên khách hàng" required>
+			</div>
+			<div>
+				<input type="text" value="" placeholder="Chứng Minh Thư" id="cmt"
+					name="cmt" th:field="*{cmt}" title="hãy nhập vào chứng minh thư" required>
+			</div>
+			<div>
+				<input type="date" value="" placeholder="Ngày Sinh"
+					id="ngaysinh" name="ngaysinh" th:field="*{dateOfBirth}"
+					title="hãy nhập vào ngày sinh khách hàng" required>
+			</div>
+
+
+			<div>
+				<td>Phòng</td> 
+				<select name="phong" id="phong">
+				<tr>
+				<option selected="selected" th:value="${roomNumber}" th:text="${roomNumber}"></option>
+				</tr>
+				<tr th:each="room: ${rooms}">
+				<td>
+				<option th:value="${room.roomNumber}" th:text="${room.roomNumber}"></option>
+				</td>
+				</tr>	
+				</select>
+			</div>
+			<div>
+				<input type="submit" value="Submit" name="add" id="submit">
+			</div>
+
+
+
+		</form>
+	</div>
+
+
+
+</body>
+
+</html>

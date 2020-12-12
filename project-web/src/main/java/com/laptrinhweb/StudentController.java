@@ -24,6 +24,7 @@ import com.laptrinhweb.dto.StudentDTO;
 import com.laptrinhweb.entity.Room;
 import com.laptrinhweb.entity.Service;
 import com.laptrinhweb.entity.Student;
+import com.laptrinhweb.entity.Bill;
 import com.laptrinhweb.repository.StudentRepository;
 import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
@@ -59,7 +60,7 @@ public class StudentController {
 	
 	
 	@GetMapping("/search")
-	public String searchStudent(@ModelAttribute("msv") String msv,Model model) {
+	public String searchStudent(@ModelAttribute("msv") String msv, Model model) {
 		if(msv.equals("")) {
 			return "redirect:/student";
 		}
@@ -68,6 +69,7 @@ public class StudentController {
 									Arrays.asList(rest.getForObject("http://localhost:8080/student-api/search/{studentCode}", 
 																	Student[].class, msv)));
 			model.addAttribute("students",students);
+			model.addAttribute("msv",msv);
 			return "student/student";
 		}
 	}
@@ -137,6 +139,74 @@ public class StudentController {
 		return "redirect:/student";
 	}
 	
+	@GetMapping("/statistic")
+	public String statistic(@ModelAttribute("id") String id,
+							@ModelAttribute("start") String start,
+							@ModelAttribute("end") String end ,
+							Model model) {
+		
+			Student student=rest.getForObject("http://localhost:8080/student-api/search-id/{id}", Student.class, id);
+			if(start.equals("")&&end.equals("")) {
+				List<Bill> bills = new ArrayList<Bill>(Arrays.asList(
+						rest.getForObject("http://localhost:8080/bill-api/student-search/{id}", Bill[].class, id)));
+				
+				List<Service> services = new ArrayList<Service>(
+						Arrays.asList(rest.getForObject("http://localhost:8080/service-api", Service[].class)));
+				List<ServiceDTO> servicesDTO = new ArrayList<ServiceDTO>();
+				for (Service s : services) {
+					ServiceDTO serviceDTO = serviceConvert.toServiceDTO(s);
+					int count = 0;
+					for (Bill bill : bills) {
+						List<Service> list = bill.getServices();
+						for (Service l : list) {
+							if (l.getId() == s.getId()) {
+								count++;
+							}
+						}
+
+					}
+					serviceDTO.setTotal(count * s.getPrice());
+					servicesDTO.add(serviceDTO);
+				}
+				model.addAttribute("servicesDTO", servicesDTO);
+				model.addAttribute("student", student);
+				model.addAttribute("start",start);
+				model.addAttribute("end",end);
+				return "student/statistic";
+			}
+			else {
+				List<Bill> bills = new ArrayList<Bill>(Arrays.asList(
+						rest.getForObject("http://localhost:8080/bill-api/get-by-date?id={id}&start={start}&end={end}",
+								Bill[].class, id,start,end)));
+				List<Service> services = new ArrayList<Service>(
+						Arrays.asList(rest.getForObject("http://localhost:8080/service-api", Service[].class)));
+				List<ServiceDTO> servicesDTO = new ArrayList<ServiceDTO>();
+				for (Service s : services) {
+					ServiceDTO serviceDTO = serviceConvert.toServiceDTO(s);
+					int count = 0;
+					for (Bill bill : bills) {
+						List<Service> list = bill.getServices();
+						for (Service l : list) {
+							if (l.getId() == s.getId()) {
+								count++;
+							}
+						}
+
+					}
+					serviceDTO.setTotal(count * s.getPrice());
+					servicesDTO.add(serviceDTO);
+				}
+				model.addAttribute("servicesDTO", servicesDTO);
+				model.addAttribute("student", student);
+				model.addAttribute("start",start);
+				model.addAttribute("end",end);
+				return "student/statistic";
+			}
+	
+	}
+	
+	
+	
 	@PostMapping
 	public String add(StudentDTO studentDTO) {
 		Room room=rest.getForObject("http://localhost:8080/room-api/search-id/{id}", Room.class,studentDTO.getRoomId());
@@ -156,4 +226,6 @@ public class StudentController {
 		return "redirect:/student";
 		
 	}
+	
+
 }

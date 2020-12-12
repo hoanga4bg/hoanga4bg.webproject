@@ -54,7 +54,11 @@ public class Student {
 	
 	@OneToMany(mappedBy = "student")
 	private List<Parking> parkings;
-
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "student")
+	private List<Ticket> tickets;
+	
 	@Override
 	public String toString() {
 		return "Student [id=" + id + ", studentCode=" + studentCode + ", name=" + name + ", className=" + className

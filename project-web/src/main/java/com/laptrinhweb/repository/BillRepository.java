@@ -1,5 +1,6 @@
 package com.laptrinhweb.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,23 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
 	
 	@Query(value = "SELECT * FROM webproject.Bill WHERE MONTH(create_date)=?",nativeQuery = true)
 	List<Bill> findAllByMonth(Integer month);
+	
+	
+	
+	
+	@Query(value = "SELECT month(create_date) "
+			+ "FROM bill "
+			+ "group by(month(create_date))",nativeQuery = true)
+	List<Integer> getMonth();
+	
+	
+
+	List<Bill> findByStudentIdAndCreateDateBetween(Long parseLong, Date start, Date end);
+	
+	
+	@Query(value = "SELECT *"
+			+ "	FROM webproject.bill"
+			+ "	where "
+			+ "student_id=?1 AND month(create_date)>=?2 AND month(create_date)<=?3",nativeQuery = true)
+	List<Bill> findByStudentIdBetweenMonth(Long id, Integer Integer,  Integer endMonth);
 }

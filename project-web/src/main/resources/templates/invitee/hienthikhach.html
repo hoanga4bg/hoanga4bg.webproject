@@ -1,0 +1,84 @@
+<!--A Design by W3layouts 
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="/css/style2.css" rel='stylesheet' type='text/css'
+	media="all" />
+
+</head>
+<body>
+<!-- menu -->
+	<div class="menu">
+			<span>
+			<img alt="" src="/images/iconmenu.png" width="15px" height="15px"></span> <span><a th:href="@{/}">Trang Chủ</a></span> 
+			<span><a th:href="@{/student}">Sinh Viên</a></span> 
+			<span><a th:href="@{/room}">Phòng</a></span> 
+		
+			<span><a th:href="@{/bill}">Hóa Đơn</a></span> 
+			<span><a th:href="@{/service}">Dịch vụ</a></span> 
+			<span><a th:href="@{/invite/show}">Khách Mời</a></span>
+
+		</div>
+
+	<div class="nameTitle">
+		<h1>Quản Lý Khách Mời</h1>
+	</div>
+
+
+	<div class="table1">
+		<table>
+			<thead>
+				<th scope="col">id</th>
+				<th scope="col">tên</th>
+				<th scope="col">Chứng Minh Thư</th>
+				<th scope="col">ngày sinh</th>
+				<th scope="col">ngày thăm</th>
+				<th scope="col">
+					<div>
+						<form th:action="@{/invite/search}" method="POST">
+							<input type="search" placeholder="Tìm Kiếm"
+								name="timkiem" id="timkiem" title="nhập tên khách mời muốn tìm kiếm" > <input type="submit" value="Search"
+								>
+						</form>
+					</div>
+				</th>
+				
+			</thead>
+			<tbody>
+
+				<tr th:each="invite: ${invites}">
+
+					<td><span th:text="${invite.id}"></td>
+					<td><span th:text="${invite.name}"></td>
+					<td><span th:text="${invite.cmt}"></td>
+					<td><span th:text="${invite.dateOfBirth}"></td>
+					<td><span th:text="${invite.dateInvite}"></td>
+					<td><a th:href="@{/invite/edit(id=${invite.id})}"><img alt="Sửa" src="/images/Edit.png" width="15px" height="15px" title="Sửa"></a></td>
+					<td><a th:href="@{/invite/delete(id=${invite.id})}"><img alt="Xóa" src="/images/delete.png" width="15px" height="15px" title="Xóa"></a></td>
+				</tr>
+			</tbody>
+		</table>
+		<form th:action=@{/invite/thongke} method="POST">
+		<input type="datetime-local" name="startdate" value="">
+		<input type="datetime-local" name="enddate" value="">
+		<input type="submit" value="thống kê">
+		</form>
+		</div>
+	<div class="nameAdd">
+	<div><a  th:href="@{/invite}"><button>Thêm Khách Mời</button></a></div>
+	<div><a th:href="@{/invite/sort}"><button>sắp xếp</button></a></div>
+	
+	
+	</div>
+	</div>
+
+
+
+</body>
+</html>

@@ -8,6 +8,7 @@
 
 </head>
 <body>
+	
 	<form th:action="@{/student/update}" th:object="${student}" method="POST">
 		<table cellspacing="8" border="0">
 			<input type="hidden" name="id" th:field="*{id}" />

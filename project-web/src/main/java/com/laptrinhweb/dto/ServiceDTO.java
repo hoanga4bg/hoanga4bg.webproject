@@ -17,8 +17,8 @@ public class ServiceDTO {
 	private Long id;
 	private String name;
 	private Double price;
-	private Date timeUsing;
+
 	private boolean selected;
-	
+	private Double total;
 	
 }

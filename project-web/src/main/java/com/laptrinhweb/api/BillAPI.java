@@ -1,5 +1,6 @@
 package com.laptrinhweb.api;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laptrinhweb.entity.Bill;
@@ -50,6 +52,14 @@ public class BillAPI {
 		List<Bill> bills=billRepository.findAllByMonth(month);
 		return bills;
 	}
+	
+	
+	
+	@GetMapping("/month-search/{month}")
+	public List<Bill> findByMonth(@PathVariable("month") Integer month){
+		List<Bill> bills=billRepository.findAllByMonth(month);
+		return bills;
+	}
 	@GetMapping("/student-search/{id}")
 	public List<Bill> search(@PathVariable("id") String id) {
 		List<Bill> bills=billRepository.findByStudentId(Long.parseLong(id));
@@ -63,6 +73,32 @@ public class BillAPI {
 		List<Bill> bills=billRepository.findAllBillInMonth(Long.parseLong(id),month);
 		return bills;
 		
+	}
+	
+	@GetMapping("/get-month")
+	public List<Integer> getMonth(){
+		List<Integer> months= billRepository.getMonth();
+		return months;
+	}
+	
+	@GetMapping("/get-by-date")
+	public List<Bill> getByDate(@RequestParam("id") String id,
+								@RequestParam("start") String start,
+								@RequestParam("end") String end){
+		
+		List<Bill> bills=new ArrayList<Bill>();
+		try {
+			Date startDate=new SimpleDateFormat("yyyy-MM-dd").parse(start); 
+			Date endDate=new SimpleDateFormat("yyyy-MM-dd").parse(end);
+			 bills=billRepository.findByStudentIdAndCreateDateBetween(Long.parseLong(id), startDate, endDate);
+	
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return bills;
 	}
 	
 	@PostMapping
