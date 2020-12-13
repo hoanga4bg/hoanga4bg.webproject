@@ -84,8 +84,9 @@ public class ServiceAPI {
 	}
 	
 	@GetMapping("/employess/{name}")
-	public Service findbyname(@PathVariable("name") String name)
+	public List<Service> findbyname(@PathVariable("name") String name)
 	{
+		
 		return serviceRepository.FindByName(name);
 	}
 	

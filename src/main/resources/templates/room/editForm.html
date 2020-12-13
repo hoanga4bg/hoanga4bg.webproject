@@ -6,8 +6,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
+<style type="text/css">
+	tr{
+		text-align: center
+	}
+	table {
+		text-align: center
+	}
+</style>
 <body>
-	
+`<div style="margin: 40px auto;width:600px ;border: 1px solid black " align="center" >
 	<form th:action="@{/room/edit}" th:object="${room}" method="POST">
          <table cellspacing="8" border="0"> 
              <tr>
@@ -37,11 +45,15 @@
            	
            	
            	<tr> 
-                 <td><br>
-                     <input type="submit" value="Submit">
+                  <td >
+                    
+                 </td>
+                 <td>
+                 	 <input type="submit" value="Xác nhận">
                  </td>
              </tr>
          </table>
 	</form>
+	</div>
 </body>
 </html>

@@ -28,7 +28,7 @@ input#timkiem{
 	border: none;
 }
 .table1{
-	width: 80%;
+	width: 100%;
 	margin: 15px auto;
 }
 table{
@@ -59,11 +59,18 @@ span{
 }
 .menu{
 	color: white;
-	height: 30px;
-	line-height: 30px;
+	height: 60px;
+	line-height: 60px;
+	background-color: #34b7eb;
+	text-align: center;
+	
 }
 a{
-	color: black;
+	color: block;
 	text-decoration: none;
+}
+a:hover {
+	color:white
+	
 }
 

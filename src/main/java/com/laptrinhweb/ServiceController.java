@@ -59,7 +59,15 @@ public class ServiceController {
 		model.addAttribute("totals",totals);
 		return "service/statisticService";
 	}
-	
+	@GetMapping("/search")
+	public String search(@ModelAttribute("name") String name, Model model) {
+		if(name.equals("")) {
+			return "redirect:/service";
+		}
+		List<Service> services=Arrays.asList(rest.getForObject("http://localhost:8080/service-api/employess/{name}",Service[].class, name));
+		model.addAttribute("services", services);
+		return "service/index";
+	}
 	
 
 	//Huy thêm

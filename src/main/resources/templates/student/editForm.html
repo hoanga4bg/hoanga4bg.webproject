@@ -5,10 +5,17 @@
 <title>Edit Form</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
+<style type="text/css">
+	tr{
+		text-align: center
+	}
+	table {
+		text-align: center
+	}
+</style>
 </head>
 <body>
-	
+		<div style="margin: 40px auto;width:600px ;border: 1px solid black " align="center" >
 	<form th:action="@{/student/update}" th:object="${student}" method="POST">
 		<table cellspacing="8" border="0">
 			<input type="hidden" name="id" th:field="*{id}" />
@@ -65,9 +72,12 @@
 			</tr>
 			
 			<tr>
-				<td><br> <input type="submit" value="Xác nhận"></td>
+				<td>
+             	</td>
+				<td><br> <input type="submit" value="Xác nhận" style="width: 100px;height: 30px"></td>
 			</tr>
 		</table>
 	</form>
+	</div>
 </body>
 </html>

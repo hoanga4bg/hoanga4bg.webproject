@@ -21,10 +21,20 @@
 
 		</div>
 
-
+		
 		<br />
 		<br />
 	<div align="center">
+		
+		<div style="text-align: center">
+			<form th:action=@{/service/search}  method="GET">
+				<input type="text" id="name" name="name" placeholder="Nhập tên dịch vụ"/>
+				<input type="submit" name="Search" value="Tìm kiếm"  onclick="check()">
+			</form>
+			
+		</div>
+		<br />
+		<br />
 		<h1>Quản Lý Dịch Vụ</h1>
 		<br /><button><a th:href=@{/service/add}>Tạo mới dịch vụ</a></button>  <br /> <br /> <br /> <br />
 		<table border="1" cellpadding="10">

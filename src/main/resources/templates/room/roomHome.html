@@ -21,6 +21,8 @@
 		
 		<br />
 		<br />
+		
+		
 	<div style="text-align: center">
 		<form th:action=@{/room/search}  method="GET">
 			<input id="rn" type="text" name="roomNumber" placeholder="Nhập số phòng"/>
@@ -32,9 +34,13 @@
 	</br>
 	</br>
 	</br>
+	
+	<div style="text-align: center">
+		<a th:href="@{/room/add}" style="height: 40px;width: 100px"> <button>Thêm phòng</button></a></td>
+	</div>
 	<div>
 		<h1>Danh sách phòng</h1>
-		<table cellspacing="8" border="1px">
+		<table cellspacing="" border="1">
 			<tr>
 				<th>STT</th>
 				<th>Số phòng</th>
@@ -62,9 +68,7 @@
 		</br>
 		</br>
 		</br>
-	<div>
-		<a th:href="@{/room/add}"> <button>Thêm phòng</button></a></td>
-	</div>
+	
 	
 	<script>
 		function check() {

@@ -18,6 +18,9 @@
 			<span><a th:href="@{/invite/show}">Khách Mời</a></span>
 
 		</div>
+		
+		<br />
+		<br />
 		<form style="text-align: center" th:action=@{/student/statistic}  method="GET">
 			<span>Ngày bắt đầu</span > &nbsp;&nbsp;<input type="date" id="start" name="start"/>
 			&nbsp;&nbsp;&nbsp;&nbsp; 
@@ -44,9 +47,8 @@
 			<br /><br />
 			<p style="display: inline;">Ngày sinh :</p>  <p style="display: inline;" th:text="${#dates.format(student.dateOfBirth, 'dd-MM-yyyy')}"></p>
 			<br /><br />
-			<table cellspacing="8" border="1px">
-			
-				
+			<table border="1" cellpadding="">
+
 				<tr>
 					<th>Số thứ tự</th>
 					<th>Tên dịch vụ</th>
@@ -61,9 +63,13 @@
 				</tr>
 		</table>
 		<div>
+		<br />
+		<br />
+		<div style="text-align: center">
 		
 		<button>
 			<a th:href="@{/student}">Về trang chủ</a>
 		</button>
+		</div>
 </body>
 </html>

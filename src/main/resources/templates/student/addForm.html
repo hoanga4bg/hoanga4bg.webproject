@@ -5,11 +5,19 @@
 <title>Official Signup Form Flat Responsive widget Template :: w3layouts</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+	tr{
+		text-align: center
+	}
+	table {
+		text-align: center
+	}
+</style>
 </head>
-<body>
-	
-	<form th:action="@{/student}" th:object="${student}" method="POST">
-         <table cellspacing="8" border="0"> 
+<body >
+	<div style="margin: 40px auto;width:600px ;border: 1px solid black " align="center" >
+	<form th:action="@{/student}" th:object="${student}" method="POST" >
+         <table cellspacing="8" border="0" > 
              <tr>
                  <td align="right">Họ và tên:</td>
                  <td><input type="text" name="name" th:field="*{name}"/></td> 
@@ -54,7 +62,7 @@
    			</tr>
    			<tr>
    				<td>
-	   			<select th:field="*{roomId}">
+	   			<select th:field="*{roomId}" style="width: 100px;height: 30px">
 	   			  <th:block th:each="room: ${rooms}">
 				  <option th:value="${room.id}" th:text="${room.roomNumber}" ></option> 
 				  </th:block>
@@ -62,11 +70,15 @@
 				</td>
 			</tr>
              <tr> 
-                 <td><br>
-                     <input type="submit" value="Submit">
+             	<td>
+             	</td>
+                 <td>
+                     <input type="submit" value="Thêm mới" style="width: 90px; height: 30px;">
                  </td>
              </tr>
          </table>
 	</form>
+	
+	</div>
 </body>
 </html>
