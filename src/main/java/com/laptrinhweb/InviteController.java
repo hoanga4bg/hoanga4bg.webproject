@@ -41,8 +41,9 @@ public class InviteController {
 	}
 	@PostMapping("/thongke")
 	public String thongke(@RequestParam("startdate") String startdate,@RequestParam("enddate") String enddate,Model model) {
-		System.out.println(startdate);
-		System.out.println(enddate);
+		if(startdate.equals("") || enddate.equals("")) {
+			return "redirect:/invite/show";
+		}
 		List<Invitee> invites = Arrays.asList(rest.getForObject("http://localhost:8080/invitee-api/thongke/{startdate}/{enddate}",Invitee[].class,startdate,enddate));
 		model.addAttribute("invites", invites);
 		System.out.println(invites);
