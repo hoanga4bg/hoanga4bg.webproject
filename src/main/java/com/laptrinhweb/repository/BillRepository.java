@@ -14,11 +14,11 @@ import com.laptrinhweb.entity.Bill;
 public interface BillRepository extends JpaRepository<Bill, Long> {
 	List<Bill> findByStudentId(Long id);
 	Bill findOneById(Long id);
-	@Query(value = "SELECT * FROM Bill WHERE student_id=?1 AND MONTH(create_date)=?2",nativeQuery = true)
+	@Query(value = "SELECT * FROM bill WHERE student_id=?1 AND MONTH(create_date)=?2",nativeQuery = true)
 	List<Bill> findAllBillInMonth(Long id,Integer month);
 	
 	
-	@Query(value = "SELECT * FROM Bill WHERE MONTH(create_date)=?",nativeQuery = true)
+	@Query(value = "SELECT * FROM bill WHERE MONTH(create_date)=?",nativeQuery = true)
 	List<Bill> findAllByMonth(Integer month);
 	
 	
