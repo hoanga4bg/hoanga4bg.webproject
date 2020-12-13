@@ -32,6 +32,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 	<div class="table1">
+		<form th:action=@{/invite/thongke} method="POST">
+			<input type="datetime-local" name="startdate" value="">
+			<input type="datetime-local" name="enddate" value="">
+			<input type="submit" value="thống kê">
+		</form>
+		<br/>
+		<br/>
 		<table>
 			<thead>
 				<th scope="col">id</th>
@@ -64,11 +71,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</tr>
 			</tbody>
 		</table>
-		<form th:action=@{/invite/thongke} method="POST">
-		<input type="datetime-local" name="startdate" value="">
-		<input type="datetime-local" name="enddate" value="">
-		<input type="submit" value="thống kê">
-		</form>
+		
 		</div>
 	<div class="nameAdd">
 	<div><a  th:href="@{/invite}"><button>Thêm Khách Mời</button></a></div>
