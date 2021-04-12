@@ -37,7 +37,7 @@ public class StudentController {
 	private StudentConvert studentConvert=new StudentConvert();
 	private ServiceConvert serviceConvert=new ServiceConvert();
 
-	
+	//Lấy danh sách sinh viên
 	@GetMapping
 	public String showAll(Model model) {
 		List<Student> students=Arrays.asList(rest.getForObject("http://localhost:8080/student-api", Student[].class));
@@ -45,7 +45,10 @@ public class StudentController {
 
 		return "student/student";
 	}
-
+	
+	
+	
+	//Hiển thị form thêm sinh viên
 	@GetMapping("/add")
 	public String addFrom(Model model) {
 		List<Service> services=Arrays.asList(rest.getForObject("http://localhost:8080/service-api", Service[].class));
@@ -58,7 +61,7 @@ public class StudentController {
 	}
 	
 	
-	
+	// Tìm kiếm sinh viên
 	@GetMapping("/search")
 	public String searchStudent(@ModelAttribute("msv") String msv, Model model) {
 		if(msv.equals("")) {
@@ -77,7 +80,7 @@ public class StudentController {
 	
 	
 	
-	
+	//Form sửa thông tin sinh viên
 	@GetMapping("/edit")
 	public String editForm(@ModelAttribute("id") String id,Model model) {
 		Student student=rest.getForObject("http://localhost:8080/student-api/search-id/{id}",Student.class,id);
@@ -85,6 +88,8 @@ public class StudentController {
 		StudentDTO studentDTO=new StudentDTO();
 		studentDTO=studentConvert.toStudenDTO(student);
 		
+		
+		//Danh sách phòng còn trống
 		List<Room> rooms=new ArrayList<Room>(Arrays.asList(rest.getForObject("http://localhost:8080/room-api/availble", Room[].class)));
 		
 		
@@ -114,13 +119,16 @@ public class StudentController {
 		
 		List<ServiceDTO> servicesDTO=new ArrayList<ServiceDTO>();
 		
-		
+		//Danh sách dịch vụ
 		for(Service s:allServices) {
 			ServiceDTO sd=new ServiceDTO();
 			sd=serviceConvert.toServiceDTO(s);
+			
+			//Dịch vụ đã chọn
 			if(services.indexOf(s)!=-1) {
 				sd.setSelected(true);			
 			}
+			//Dịch vụ chưa chọn
 			else {
 				sd.setSelected(false);
 			}

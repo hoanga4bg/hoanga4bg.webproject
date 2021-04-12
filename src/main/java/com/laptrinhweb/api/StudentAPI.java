@@ -28,26 +28,27 @@ public class StudentAPI {
 	private StudentRepository studentRepository;
 	
 
-	
+	//Lấy tất cả danh sách sinh viên
 	@GetMapping
 	public List<Student> getAll(){
 		List<Student> list=new ArrayList<Student>();
 		list=studentRepository.findAll();
 		return list;
 	}
-	
+	//Tìm kiếm theo mã sinh viên
 	@GetMapping("/search/{studentCode}")
 	public List<Student> searchStudent(@PathVariable("studentCode") String studentCode) {
 		List<Student> s=studentRepository.findByStudentCode(studentCode);
 		return s;
 	}
-	
+	//Tìm theo id
 	@GetMapping("/search-id/{id}")
 	public Student searchStudentById(@PathVariable("id") String id) {
 		Student student=studentRepository.findOneById(Long.parseLong(id));
 		return student;
 	}
 	
+	// Lưu
 	@PostMapping
 	public Student saveStudent(@RequestBody Student student) {
 		return studentRepository.save(student);

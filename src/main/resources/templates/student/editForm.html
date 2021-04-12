@@ -19,7 +19,7 @@
 	<form th:action="@{/student/update}" th:object="${student}" method="POST">
 		<table cellspacing="8" border="0">
 			<input type="hidden" name="id" th:field="*{id}" />
-	
+				
 			<tr>
 				<td align="right">Họ và tên:</td>
 				<td><input type="text" name="name" th:field="*{name}" /></td>
@@ -64,9 +64,10 @@
 			</tr>
 			
 			<tr>
-				<td><select th:field="*{roomId}">
-						<th:block th:each="room: ${rooms}">
-							<option th:value="${room.id}" th:text="${room.roomNumber}" th:selected></option>
+				<td>
+				<select th:field="*{roomId}">
+						<th:block th:each="r: ${rooms}">
+							<option th:value="${r.id}" th:text="${r.roomNumber}" th:selected="${r.id==student.roomId}" ></option>
 						</th:block>
 				</select></td>
 			</tr>
